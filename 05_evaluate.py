@@ -35,7 +35,7 @@ NUM_LAYERS  = 2
 
 
 def load_model(checkpoint_path, data, num_se, num_pathways, device):
-    ckpt = torch.load(checkpoint_path, map_location=device)
+    ckpt = torch.load(checkpoint_path, map_location=device, weights_only=False)
     cfg  = ckpt["config"]
 
     in_dims = {
@@ -120,9 +120,9 @@ def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Device: {device}")
 
-    data   = torch.load(PROCESSED / "graph.pt").to(device)
-    splits = torch.load(PROCESSED / "splits.pt")
-    combo  = torch.load(PROCESSED / "combo_edges.pt")
+    data   = torch.load(PROCESSED / "graph.pt", weights_only=False).to(device)
+    splits = torch.load(PROCESSED / "splits.pt", weights_only=False)
+    combo  = torch.load(PROCESSED / "combo_edges.pt", weights_only=False)
 
     with open(PROCESSED / "pathway_memberships.pkl", "rb") as f:
         pathway_data = pickle.load(f)

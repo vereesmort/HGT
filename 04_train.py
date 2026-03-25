@@ -85,9 +85,9 @@ def main():
 
     # ── Load data ───────────────────────────────────────────────────────────
     print("Loading graph and splits...")
-    data   = torch.load(PROCESSED / "graph.pt").to(device)
-    splits = torch.load(PROCESSED / "splits.pt")
-    combo  = torch.load(PROCESSED / "combo_edges.pt")
+    data   = torch.load(PROCESSED / "graph.pt", weights_only=False).to(device)
+    splits = torch.load(PROCESSED / "splits.pt", weights_only=False)
+    combo  = torch.load(PROCESSED / "combo_edges.pt", weights_only=False)
     top_se_ids = combo["top_se_ids"]
     num_se     = len(top_se_ids)
 

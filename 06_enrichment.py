@@ -37,7 +37,7 @@ SEED       = 42
 
 
 def load_model_and_embeddings(data, drug_pathway_map, num_se, num_pathways, device):
-    ckpt = torch.load(CHECKPOINTS / "best_model.pt", map_location=device)
+    ckpt = torch.load(CHECKPOINTS / "best_model.pt", map_location=device, weights_only=False)
     cfg  = ckpt["config"]
 
     in_dims = {
@@ -120,8 +120,8 @@ def main():
     device = torch.device("cpu")  # embeddings extraction on CPU is fine
 
     print("Loading data...")
-    data   = torch.load(PROCESSED / "graph.pt")
-    combo  = torch.load(PROCESSED / "combo_edges.pt")
+    data   = torch.load(PROCESSED / "graph.pt", weights_only=False)
+    combo  = torch.load(PROCESSED / "combo_edges.pt", weights_only=False)
     num_se = len(combo["top_se_ids"])
 
     with open(PROCESSED / "pathway_memberships.pkl", "rb") as f:
